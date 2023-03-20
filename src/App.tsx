@@ -1,9 +1,30 @@
+import { useEffect, useState } from 'react'
+import { getdata } from './api/axios'
 import './App.css'
+import { useNumberState } from './store/store'
 
-function App() {
+type Types = {
+	id: number
+	email: string
+}
+const App = () => {
+	const values = useNumberState(state => ({ email: state.email }))
+	console.log(values)
+	const [newData, setNewData] = useState<Array<Types>>([])
+	const getUsers = async () => {
+		const data = await getdata()
+		setNewData(data?.data.data)
+	}
+	console.log(newData)
+	useEffect(() => {
+		getUsers()
+	}, [])
+
 	return (
 		<div>
-			<h1 className="text-red-600">Hellso</h1>
+			{newData.map(data => (
+				<h1 key={data.id}>{data.email}</h1>
+			))}
 		</div>
 	)
 }
