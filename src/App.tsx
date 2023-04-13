@@ -23,7 +23,9 @@ const App = () => {
 	return (
 		<div>
 			{newData.map(data => (
-				<h1 key={data.id}>{data.email}</h1>
+				<h1 key={data.id} className="text-red-700">
+					{data.email}
+				</h1>
 			))}
 		</div>
 	)
